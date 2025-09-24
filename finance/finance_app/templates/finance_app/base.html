@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance App</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        header { margin-bottom: 20px; }
+        nav a { margin-right: 10px; text-decoration: none; color: #333; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        input, textarea, select, button { padding: 5px; margin-top: 5px; width: 100%; }
+        button { width: auto; cursor: pointer; }
+        form { max-width: 500px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'financing-list' %}">Home</a>
+            <a href="{% url 'financing-create' %}">Add Financing</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
