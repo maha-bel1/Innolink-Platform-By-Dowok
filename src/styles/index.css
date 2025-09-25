@@ -1,0 +1,2736 @@
+/* src/styles/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+    color: #2d3c67; /* This is your c-5 color */
+  }
+}
+
+@layer components {
+  /* Custom button styles */
+  .btn-primary {
+    background-color: rgb(37 99 235);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+  
+  .btn-primary:hover {
+    background-color: rgb(29 78 216);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+
+  .btn-secondary {
+    background-color: white;
+    color: rgb(29 78 216);
+    border: 1px solid rgb(59 130 246);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+  
+  .btn-secondary:hover {
+    background-color: rgb(239 246 255);
+  }
+
+  /* Form styles */
+  .form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgb(209 213 219);
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+  
+  .form-input:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    --tw-ring-color: rgb(59 130 246);
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+    border-color: transparent;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgb(30 58 138);
+    margin-bottom: 0.5rem;
+  }
+
+  /* Form container shadow */
+  .form-container {
+    background-color: white;
+    padding: 2rem 1rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    border-radius: 0.5rem;
+  }
+  
+  @media (min-width: 640px) {
+    .form-container {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+  }
+}
+
+/* Custom color utility classes */
+.bg-c-1 { background-color: #e7e2f3; }
+.bg-c-2 { background-color: #a7b2e6; }
+.bg-c-3 { background-color: #688cca; }
+.bg-c-4 { background-color: #496d9c; }
+.bg-c-5 { background-color: #2d3c67; }
+
+.text-c-1 { color: #e7e2f3; }
+.text-c-2 { color: #a7b2e6; }
+.text-c-3 { color: #688cca; }
+.text-c-4 { color: #496d9c; }
+.text-c-5 { color: #2d3c67; }
+
+.border-c-2 { border-color: #a7b2e6; }
+.border-c-3 { border-color: #688cca; }
+
+.hover\:bg-c-4:hover { background-color: #496d9c; }
+.hover\:text-c-4:hover { color: #496d9c; }
+.hover\:bg-c-3:hover { background-color: #688cca; }
+.hover\:text-c-3:hover { color: #688cca; }
+.hover\:bg-c-2:hover { background-color: #a7b2e6; }
+.hover\:text-c-2:hover { color: #a7b2e6; }
+
+.focus\:ring-c-3:focus { 
+  --tw-ring-color: #688cca;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.form-container {
+  background-color: white;
+  padding: 2rem 1rem;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  border-radius: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .form-container {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgb(55 65 81);
+  margin-bottom: 0.25rem;
+}
+
+.form-input {
+  appearance: none;
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgb(209 213 219);
+  border-radius: 0.375rem;
+  color: rgb(17 24 39);
+  background-color: white;
+}
+
+.form-input::placeholder {
+  color: rgb(156 163 175);
+}
+
+.form-input:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --tw-ring-color: rgb(59 130 246);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  border-color: rgb(59 130 246);
+}
+
+/* ========== DASHBOARD ADDITIONAL STYLES ========== */
+
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  transition: width 1s ease-in-out;
+}
+
+.sidebar-header {
+  background-color: #2a5ab3;
+}
+
+/* Additional custom styles if needed */
+.bg-accentblue {
+  background-color: #4F6DF5;
+}
+.bg-accentpurple {
+  background-color: #7E57C2;
+}
+.bg-accentgreen {
+  background-color: #43A047;
+}
+.bg-accentred {
+  background-color: #E53935;
+}
+
+/* Smooth transitions for sidebar items */
+.sidebar-item {
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-item:hover {
+  transform: translateX(4px);
+}
+
+/* Active state indicator */
+.sidebar-item.active {
+  position: relative;
+}
+
+.sidebar-item.active::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  background-color: white;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Improve logo styling */
+.sidebar-logo {
+  transition: transform 0.3s ease;
+}
+
+.sidebar-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Welcome card enhancements */
+.welcome-card {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer styling */
+.sidebar-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Chatbot specific styles */
+.chat-container {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.message-bubble {
+  max-width: 70%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  position: relative;
+}
+
+.message-bubble.bot {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-top-left-radius: 4px;
+}
+
+.message-bubble.user {
+  background: #4F6DF5;
+  color: white;
+  border-top-right-radius: 4px;
+}
+
+.message-time {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.quick-reply {
+  transition: all 0.2s ease;
+}
+
+.quick-reply:hover {
+  transform: translateY(-2px);
+}
+
+.chat-input {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px 16px;
+  transition: border-color 0.2s ease;
+}
+
+.chat-input:focus {
+  outline: none;
+  border-color: #4F6DF5;
+  box-shadow: 0 0 0 3px rgba(79, 109, 245, 0.1);
+}
+
+/* Calendar improvements */
+.calendar-day {
+  transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+  transform: scale(1.05);
+}
+
+/* Event card improvements */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Smooth transitions for calendar navigation */
+.calendar-nav {
+  transition: all 0.2s ease;
+}
+
+.calendar-nav:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  transition: width 1s ease-in-out;
+}
+
+.sidebar-header {
+  background-color: #2a5ab3;
+}
+
+/* Additional custom styles if needed */
+.bg-accentblue {
+  background-color: #4F6DF5;
+}
+.bg-accentpurple {
+  background-color: #7E57C2;
+}
+.bg-accentgreen {
+  background-color: #43A047;
+}
+.bg-accentred {
+  background-color: #E53935;
+}
+
+/* Smooth transitions for sidebar items */
+.sidebar-item {
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-item:hover {
+  transform: translateX(4px);
+}
+
+/* Active state indicator */
+.sidebar-item.active {
+  position: relative;
+}
+
+.sidebar-item.active::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  background-color: white;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Improve logo styling */
+.sidebar-logo {
+  transition: transform 0.3s ease;
+}
+
+.sidebar-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Welcome card enhancements */
+.welcome-card {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer styling */
+.sidebar-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/*chatbot*/
+
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  transition: width 1s ease-in-out;
+}
+
+.sidebar-header {
+  background-color: #2a5ab3;
+}
+
+/* Additional custom styles if needed */
+.bg-accentblue {
+  background-color: #4F6DF5;
+}
+.bg-accentpurple {
+  background-color: #7E57C2;
+}
+.bg-accentgreen {
+  background-color: #43A047;
+}
+.bg-accentred {
+  background-color: #E53935;
+}
+
+/* Smooth transitions for sidebar items */
+.sidebar-item {
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-item:hover {
+  transform: translateX(4px);
+}
+
+/* Active state indicator */
+.sidebar-item.active {
+  position: relative;
+}
+
+.sidebar-item.active::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  background-color: white;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Improve logo styling */
+.sidebar-logo {
+  transition: transform 0.3s ease;
+}
+
+.sidebar-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Welcome card enhancements */
+.welcome-card {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer styling */
+.sidebar-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Chatbot specific styles */
+.chat-container {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.message-bubble {
+  max-width: 70%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  position: relative;
+}
+
+.message-bubble.bot {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-top-left-radius: 4px;
+}
+
+.message-bubble.user {
+  background: #4F6DF5;
+  color: white;
+  border-top-right-radius: 4px;
+}
+
+.message-time {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.quick-reply {
+  transition: all 0.2s ease;
+}
+
+.quick-reply:hover {
+  transform: translateY(-2px);
+}
+
+.chat-input {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px 16px;
+  transition: border-color 0.2s ease;
+}
+
+.chat-input:focus {
+  outline: none;
+  border-color: #4F6DF5;
+  box-shadow: 0 0 0 3px rgba(79, 109, 245, 0.1);
+}
+
+/* Calendar improvements */
+.calendar-day {
+  transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+  transform: scale(1.05);
+}
+
+/* Event card improvements */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Smooth transitions for calendar navigation */
+.calendar-nav {
+  transition: all 0.2s ease;
+}
+
+.calendar-nav:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  transition: width 1s ease-in-out;
+}
+
+.sidebar-header {
+  background-color: #2a5ab3;
+}
+
+/* Additional custom styles if needed */
+.bg-accentblue {
+  background-color: #4F6DF5;
+}
+.bg-accentpurple {
+  background-color: #7E57C2;
+}
+.bg-accentgreen {
+  background-color: #43A047;
+}
+.bg-accentred {
+  background-color: #E53935;
+}
+
+/* Smooth transitions for sidebar items */
+.sidebar-item {
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-item:hover {
+  transform: translateX(4px);
+}
+
+/* Active state indicator */
+.sidebar-item.active {
+  position: relative;
+}
+
+.sidebar-item.active::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  background-color: white;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Improve logo styling */
+.sidebar-logo {
+  transition: transform 0.3s ease;
+}
+
+.sidebar-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Welcome card enhancements */
+.welcome-card {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer styling */
+.sidebar-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  transition: width 1s ease-in-out;
+}
+
+.sidebar-header {
+  background-color: #2a5ab3;
+}
+
+/* Additional custom styles if needed */
+.bg-accentblue {
+  background-color: #4F6DF5;
+}
+.bg-accentpurple {
+  background-color: #7E57C2;
+}
+.bg-accentgreen {
+  background-color: #43A047;
+}
+.bg-accentred {
+  background-color: #E53935;
+}
+
+/* Smooth transitions for sidebar items */
+.sidebar-item {
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-item:hover {
+  transform: translateX(4px);
+}
+
+/* Active state indicator */
+.sidebar-item.active {
+  position: relative;
+}
+
+.sidebar-item.active::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  background-color: white;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Improve logo styling */
+.sidebar-logo {
+  transition: transform 0.3s ease;
+}
+
+.sidebar-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Welcome card enhancements */
+.welcome-card {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer styling */
+.sidebar-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Chatbot specific styles */
+.chat-container {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.message-bubble {
+  max-width: 70%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  position: relative;
+}
+
+.message-bubble.bot {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-top-left-radius: 4px;
+}
+
+.message-bubble.user {
+  background: #4F6DF5;
+  color: white;
+  border-top-right-radius: 4px;
+}
+
+.message-time {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.quick-reply {
+  transition: all 0.2s ease;
+}
+
+.quick-reply:hover {
+  transform: translateY(-2px);
+}
+
+.chat-input {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px 16px;
+  transition: border-color 0.2s ease;
+}
+
+.chat-input:focus {
+  outline: none;
+  border-color: #4F6DF5;
+  box-shadow: 0 0 0 3px rgba(79, 109, 245, 0.1);
+}
+
+/* Calendar improvements */
+.calendar-day {
+  transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+  transform: scale(1.05);
+}
+
+/* Event card improvements */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Smooth transitions for calendar navigation */
+.calendar-nav {
+  transition: all 0.2s ease;
+}
+
+.calendar-nav:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Support button styles */
+.support-button {
+  transition: all 0.2s ease;
+}
+
+.support-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Voice input animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-pulse {
+  animation: pulse 1.5s infinite;
+}
+
+/* File upload button styles */
+.file-upload-button {
+  transition: all 0.2s ease;
+}
+
+.file-upload-button:hover {
+  transform: translateY(-1px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .chat-container {
+    border-radius: 12px;
+  }
+  
+  .message-bubble {
+    max-width: 85%;
+  }
+  
+  .quick-replies {
+    flex-wrap: wrap;
+  }
+  
+  .quick-reply {
+    margin-bottom: 8px;
+  }
+}
+/* Calendar improvements */
+.calendar-day {
+  transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+  transform: scale(1.05);
+}
+
+/* Event card improvements */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Smooth transitions for calendar navigation */
+.calendar-nav {
+  transition: all 0.2s ease;
+}
+
+.calendar-nav:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  transition: width 1s ease-in-out;
+}
+
+.sidebar-header {
+  background-color: #2a5ab3;
+}
+
+/* Additional custom styles if needed */
+.bg-accentblue {
+  background-color: #4F6DF5;
+}
+.bg-accentpurple {
+  background-color: #7E57C2;
+}
+.bg-accentgreen {
+  background-color: #43A047;
+}
+.bg-accentred {
+  background-color: #E53935;
+}
+
+/* Smooth transitions for sidebar items */
+.sidebar-item {
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-item:hover {
+  transform: translateX(4px);
+}
+
+/* Active state indicator */
+.sidebar-item.active {
+  position: relative;
+}
+
+.sidebar-item.active::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  background-color: white;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Improve logo styling */
+.sidebar-logo {
+  transition: transform 0.3s ease;
+}
+
+.sidebar-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Welcome card enhancements */
+.welcome-card {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer styling */
+.sidebar-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  transition: width 1s ease-in-out;
+}
+
+.sidebar-header {
+  background-color: #2a5ab3;
+}
+
+/* Additional custom styles if needed */
+.bg-accentblue {
+  background-color: #4F6DF5;
+}
+.bg-accentpurple {
+  background-color: #7E57C2;
+}
+.bg-accentgreen {
+  background-color: #43A047;
+}
+.bg-accentred {
+  background-color: #E53935;
+}
+
+/* Smooth transitions for sidebar items */
+.sidebar-item {
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-item:hover {
+  transform: translateX(4px);
+}
+
+/* Active state indicator */
+.sidebar-item.active {
+  position: relative;
+}
+
+.sidebar-item.active::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  background-color: white;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Improve logo styling */
+.sidebar-logo {
+  transition: transform 0.3s ease;
+}
+
+.sidebar-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Welcome card enhancements */
+.welcome-card {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer styling */
+.sidebar-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Chatbot specific styles */
+.chat-container {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.message-bubble {
+  max-width: 70%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  position: relative;
+}
+
+.message-bubble.bot {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-top-left-radius: 4px;
+}
+
+.message-bubble.user {
+  background: #4F6DF5;
+  color: white;
+  border-top-right-radius: 4px;
+}
+
+.message-time {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.quick-reply {
+  transition: all 0.2s ease;
+}
+
+.quick-reply:hover {
+  transform: translateY(-2px);
+}
+
+.chat-input {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px 16px;
+  transition: border-color 0.2s ease;
+}
+
+.chat-input:focus {
+  outline: none;
+  border-color: #4F6DF5;
+  box-shadow: 0 0 0 3px rgba(79, 109, 245, 0.1);
+}
+
+/* Calendar improvements */
+.calendar-day {
+  transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+  transform: scale(1.05);
+}
+
+/* Event card improvements */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Smooth transitions for calendar navigation */
+.calendar-nav {
+  transition: all 0.2s ease;
+}
+
+.calendar-nav:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Support button styles */
+.support-button {
+  transition: all 0.2s ease;
+}
+
+.support-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Voice input animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-pulse {
+  animation: pulse 1.5s infinite;
+}
+
+/* File upload button styles */
+.file-upload-button {
+  transition: all 0.2s ease;
+}
+
+.file-upload-button:hover {
+  transform: translateY(-1px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .chat-container {
+    border-radius: 12px;
+  }
+  
+  .message-bubble {
+    max-width: 85%;
+  }
+  
+  .quick-replies {
+    flex-wrap: wrap;
+  }
+  
+  .quick-reply {
+    margin-bottom: 8px;
+  }
+}
+
+/* Calendar improvements */
+.calendar-day {
+  transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+  transform: scale(1.05);
+}
+
+/* Event card improvements */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Smooth transitions for calendar navigation */
+.calendar-nav {
+  transition: all 0.2s ease;
+}
+
+.calendar-nav:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Support button animations */
+.support-button {
+  transition: all 0.3s ease;
+}
+
+.support-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* FAQ section improvements */
+.faq-item {
+  transition: all 0.2s ease;
+}
+
+.faq-item:hover {
+  background-color: #f8fafc;
+}
+
+/* Chat header improvements */
+.chat-header {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Smooth transitions for all interactive elements */
+button, .clickable {
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+/* Support information styling */
+.support-info {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border: 1px solid #e2e8f0;
+}
+
+/* Mobile responsiveness for support buttons */
+@media (max-width: 640px) {
+  .support-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .support-button {
+    width: 100%;
+  }
+}
+
+/* Search results styling */
+.search-results-info {
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+  border: 1px solid #7dd3fc;
+}
+
+/* Search input enhancements */
+.search-input {
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  box-shadow: 0 0 0 3px rgba(79, 109, 245, 0.1);
+}
+
+/* No results animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.no-results {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* new */
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  transition: width 1s ease-in-out;
+}
+
+.sidebar-header {
+  background-color: #2a5ab3;
+}
+
+/* Additional custom styles if needed */
+.bg-accentblue {
+  background-color: #4F6DF5;
+}
+.bg-accentpurple {
+  background-color: #7E57C2;
+}
+.bg-accentgreen {
+  background-color: #43A047;
+}
+.bg-accentred {
+  background-color: #E53935;
+}
+
+/* Smooth transitions for sidebar items */
+.sidebar-item {
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-item:hover {
+  transform: translateX(4px);
+}
+
+/* Active state indicator */
+.sidebar-item.active {
+  position: relative;
+}
+
+.sidebar-item.active::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  background-color: white;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Improve logo styling */
+.sidebar-logo {
+  transition: transform 0.3s ease;
+}
+
+.sidebar-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Welcome card enhancements */
+.welcome-card {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer styling */
+.sidebar-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Chatbot specific styles */
+.chat-container {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.message-bubble {
+  max-width: 70%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  position: relative;
+}
+
+.message-bubble.bot {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-top-left-radius: 4px;
+}
+
+.message-bubble.user {
+  background: #4F6DF5;
+  color: white;
+  border-top-right-radius: 4px;
+}
+
+.message-time {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.quick-reply {
+  transition: all 0.2s ease;
+}
+
+.quick-reply:hover {
+  transform: translateY(-2px);
+}
+
+.chat-input {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px 16px;
+  transition: border-color 0.2s ease;
+}
+
+.chat-input:focus {
+  outline: none;
+  border-color: #4F6DF5;
+  box-shadow: 0 0 0 3px rgba(79, 109, 245, 0.1);
+}
+
+/* Calendar improvements */
+.calendar-day {
+  transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+  transform: scale(1.05);
+}
+
+/* Event card improvements */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Smooth transitions for calendar navigation */
+.calendar-nav {
+  transition: all 0.2s ease;
+}
+
+.calendar-nav:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Support button animations */
+.support-button {
+  transition: all 0.3s ease;
+}
+
+.support-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* FAQ section improvements */
+.faq-item {
+  transition: all 0.2s ease;
+}
+
+.faq-item:hover {
+  background-color: #f8fafc;
+}
+
+/* Chat header improvements */
+.chat-header {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Smooth transitions for all interactive elements */
+button, .clickable {
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+/* Support information styling */
+.support-info {
+  background: linear-gradient(135deg, #f8fafc 0%, 'E0E3EB' 100%);
+  border: 1px solid #E0E3EB;
+}
+
+/* Mobile responsiveness for support buttons */
+@media (max-width: 640px) {
+  .support-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .support-button {
+    width: 100%;
+  }
+}
+
+/* Search results styling */
+.search-results-info {
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+  border: 1px solid #7dd3fc;
+}
+
+/* Search input enhancements */
+.search-input {
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  box-shadow: 0 0 0 3px rgba(79, 109, 245, 0.1);
+}
+
+/* No results animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.no-results {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Clickable headings */
+.clickable-heading {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.clickable-heading:hover {
+  color: #4F6DF5;
+}
+
+/*preferences*/
+
+
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  transition: width 1s ease-in-out;
+}
+
+.sidebar-header {
+  background-color: #2a5ab3;
+}
+
+/* Additional custom styles if needed */
+.bg-accentblue {
+  background-color: #4F6DF5;
+}
+.bg-accentpurple {
+  background-color: #7E57C2;
+}
+.bg-accentgreen {
+  background-color: #43A047;
+}
+.bg-accentred {
+  background-color: #E53935;
+}
+
+/* Smooth transitions for sidebar items */
+.sidebar-item {
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-item:hover {
+  transform: translateX(4px);
+}
+
+/* Active state indicator */
+.sidebar-item.active {
+  position: relative;
+}
+
+.sidebar-item.active::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  background-color: white;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Improve logo styling */
+.sidebar-logo {
+  transition: transform 0.3s ease;
+}
+
+.sidebar-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Welcome card enhancements */
+.welcome-card {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer styling */
+.sidebar-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Chatbot specific styles */
+.chat-container {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.message-bubble {
+  max-width: 70%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  position: relative;
+}
+
+.message-bubble.bot {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-top-left-radius: 4px;
+}
+
+.message-bubble.user {
+  background: #4F6DF5;
+  color: white;
+  border-top-right-radius: 4px;
+}
+
+.message-time {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.quick-reply {
+  transition: all 0.2s ease;
+}
+
+.quick-reply:hover {
+  transform: translateY(-2px);
+}
+
+.chat-input {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px 16px;
+  transition: border-color 0.2s ease;
+}
+
+.chat-input:focus {
+  outline: none;
+  border-color: #4F6DF5;
+  box-shadow: 0 0 0 3px rgba(79, 109, 245, 0.1);
+}
+
+/* Calendar improvements */
+.calendar-day {
+  transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+  transform: scale(1.05);
+}
+
+/* Event card improvements */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Smooth transitions for calendar navigation */
+.calendar-nav {
+  transition: all 0.2s ease;
+}
+
+.calendar-nav:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Support button styles */
+.support-button {
+  transition: all 0.2s ease;
+}
+
+.support-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Voice input animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-pulse {
+  animation: pulse 1.5s infinite;
+}
+
+/* File upload button styles */
+.file-upload-button {
+  transition: all 0.2s ease;
+}
+
+.file-upload-button:hover {
+  transform: translateY(-1px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .chat-container {
+    border-radius: 12px;
+  }
+  
+  .message-bubble {
+    max-width: 85%;
+  }
+  
+  .quick-replies {
+    flex-wrap: wrap;
+  }
+  
+  .quick-reply {
+    margin-bottom: 8px;
+  }
+}
+
+/* Support button animations */
+.support-button {
+  transition: all 0.3s ease;
+}
+
+.support-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* FAQ section improvements */
+.faq-item {
+  transition: all 0.2s ease;
+}
+
+.faq-item:hover {
+  background-color: #f8fafc;
+}
+
+/* Chat header improvements */
+.chat-header {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Smooth transitions for all interactive elements */
+button, .clickable {
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+/* Support information styling */
+.support-info {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border: 1px solid #e2e8f0;
+}
+
+/* Mobile responsiveness for support buttons */
+@media (max-width: 640px) {
+  .support-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .support-button {
+    width: 100%;
+  }
+}
+
+/* Search results styling */
+.search-results-info {
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+  border: 1px solid #7dd3fc;
+}
+
+/* Search input enhancements */
+.search-input {
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  box-shadow: 0 0 0 3px rgba(79, 109, 245, 0.1);
+}
+
+/* No results animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.no-results {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Clickable headings */
+.clickable-heading {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.clickable-heading:hover {
+  color: #4F6DF5;
+}
+
+/* Confirmation dialog animation */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.confirmation-dialog {
+  animation: fadeInScale 0.2s ease-out;
+}
+
+/* Modal overlay - Clear background */
+.modal-overlay {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(2px);
+}
+
+/* Ensure content behind modal is still visible */
+.modal-content {
+  z-index: 60;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* accessibility*/
+
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  transition: width 1s ease-in-out;
+}
+
+.sidebar-header {
+  background-color: #2a5ab3;
+}
+
+/* Additional custom styles if needed */
+.bg-accentblue {
+  background-color: #4F6DF5;
+}
+.bg-accentpurple {
+  background-color: #7E57C2;
+}
+.bg-accentgreen {
+  background-color: #43A047;
+}
+.bg-accentred {
+  background-color: #E53935;
+}
+
+/* Smooth transitions for sidebar items */
+.sidebar-item {
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-item:hover {
+  transform: translateX(4px);
+}
+
+/* Active state indicator */
+.sidebar-item.active {
+  position: relative;
+}
+
+.sidebar-item.active::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  background-color: white;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Improve logo styling */
+.sidebar-logo {
+  transition: transform 0.3s ease;
+}
+
+.sidebar-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Welcome card enhancements */
+.welcome-card {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer styling */
+.sidebar-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Chatbot specific styles */
+.chat-container {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.message-bubble {
+  max-width: 70%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  position: relative;
+}
+
+.message-bubble.bot {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-top-left-radius: 4px;
+}
+
+.message-bubble.user {
+  background: #4F6DF5;
+  color: white;
+  border-top-right-radius: 4px;
+}
+
+.message-time {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.quick-reply {
+  transition: all 0.2s ease;
+}
+
+.quick-reply:hover {
+  transform: translateY(-2px);
+}
+
+.chat-input {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px 16px;
+  transition: border-color 0.2s ease;
+}
+
+.chat-input:focus {
+  outline: none;
+  border-color: #4F6DF5;
+  box-shadow: 0 0 0 3px rgba(79, 109, 245, 0.1);
+}
+
+/* Calendar improvements */
+.calendar-day {
+  transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+  transform: scale(1.05);
+}
+
+/* Event card improvements */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Smooth transitions for calendar navigation */
+.calendar-nav {
+  transition: all 0.2s ease;
+}
+
+.calendar-nav:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Support button styles */
+.support-button {
+  transition: all 0.2s ease;
+}
+
+.support-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Voice input animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-pulse {
+  animation: pulse 1.5s infinite;
+}
+
+/* File upload button styles */
+.file-upload-button {
+  transition: all 0.2s ease;
+}
+
+.file-upload-button:hover {
+  transform: translateY(-1px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .chat-container {
+    border-radius: 12px;
+  }
+  
+  .message-bubble {
+    max-width: 85%;
+  }
+  
+  .quick-replies {
+    flex-wrap: wrap;
+  }
+  
+  .quick-reply {
+    margin-bottom: 8px;
+  }
+}
+
+/* Support button animations */
+.support-button {
+  transition: all 0.3s ease;
+}
+
+.support-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* FAQ section improvements */
+.faq-item {
+  transition: all 0.2s ease;
+}
+
+.faq-item:hover {
+  background-color: #f8fafc;
+}
+
+/* Chat header improvements */
+.chat-header {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Smooth transitions for all interactive elements */
+button, .clickable {
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+/* Support information styling */
+.support-info {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border: 1px solid #e2e8f0;
+}
+
+/* Mobile responsiveness for support buttons */
+@media (max-width: 640px) {
+  .support-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .support-button {
+    width: 100%;
+  }
+}
+
+/* Search results styling */
+.search-results-info {
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+  border: 1px solid #7dd3fc;
+}
+
+/* Search input enhancements */
+.search-input {
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  box-shadow: 0 0 0 3px rgba(79, 109, 245, 0.1);
+}
+
+/* No results animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.no-results {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Clickable headings */
+.clickable-heading {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.clickable-heading:hover {
+  color: #4F6DF5;
+}
+
+/* Confirmation dialog animation */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.confirmation-dialog {
+  animation: fadeInScale 0.2s ease-out;
+}
+
+/* Modal overlay - Clear background */
+.modal-overlay {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(2px);
+}
+
+/* Ensure content behind modal is still visible */
+.modal-content {
+  z-index: 60;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* High Contrast Mode Styles */
+.high-contrast {
+  --text-primary: #000000;
+  --text-secondary: #333333;
+  --accentblue: #0000FF;
+  --surface: #FFFFFF;
+  --border: #000000;
+}
+
+.high-contrast body {
+  color: #000000;
+  background-color: #FFFFFF;
+}
+
+.high-contrast .card {
+  border: 2px solid #000000;
+  background-color: #FFFFFF;
+}
+
+.high-contrast button {
+  border: 2px solid #000000;
+}
+
+.high-contrast .text-textprimary {
+  color: #000000 !important;
+}
+
+.high-contrast .text-textsecondary {
+  color: #333333 !important;
+}
+
+.high-contrast .bg-accentblue {
+  background-color: #0000FF !important;
+  color: #FFFFFF !important;
+}
+
+/* Reduced Motion Styles */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+.reduce-motion .card-hover:hover {
+  transform: none;
+}
+
+.reduce-motion .sidebar-item:hover {
+  transform: none;
+}
+
+.reduce-motion .sidebar-logo:hover {
+  transform: none;
+}
+
+.reduce-motion .quick-reply:hover {
+  transform: none;
+}
+
+.reduce-motion .calendar-day:hover {
+  transform: none;
+}
+
+.reduce-motion .calendar-nav:hover {
+  transform: none;
+}
+
+.reduce-motion .support-button:hover {
+  transform: none;
+}
+
+.reduce-motion button:hover {
+  transform: none;
+}
+
+.reduce-motion .progress-bar {
+  transition: none;
+}
+
+/*billing */
+
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  transition: width 1s ease-in-out;
+}
+
+.sidebar-header {
+  background-color: #2a5ab3;
+}
+
+/* Additional custom styles if needed */
+.bg-accentblue {
+  background-color: #4F6DF5;
+}
+.bg-accentpurple {
+  background-color: #7E57C2;
+}
+.bg-accentgreen {
+  background-color: #43A047;
+}
+.bg-accentred {
+  background-color: #E53935;
+}
+
+/* Smooth transitions for sidebar items */
+.sidebar-item {
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-item:hover {
+  transform: translateX(4px);
+}
+
+/* Active state indicator */
+.sidebar-item.active {
+  position: relative;
+}
+
+.sidebar-item.active::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  background-color: white;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Improve logo styling */
+.sidebar-logo {
+  transition: transform 0.3s ease;
+}
+
+.sidebar-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Welcome card enhancements */
+.welcome-card {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer styling */
+.sidebar-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Chatbot specific styles */
+.chat-container {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.message-bubble {
+  max-width: 70%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  position: relative;
+}
+
+.message-bubble.bot {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-top-left-radius: 4px;
+}
+
+.message-bubble.user {
+  background: #4F6DF5;
+  color: white;
+  border-top-right-radius: 4px;
+}
+
+.message-time {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.quick-reply {
+  transition: all 0.2s ease;
+}
+
+.quick-reply:hover {
+  transform: translateY(-2px);
+}
+
+.chat-input {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px 16px;
+  transition: border-color 0.2s ease;
+}
+
+.chat-input:focus {
+  outline: none;
+  border-color: #4F6DF5;
+  box-shadow: 0 0 0 3px rgba(79, 109, 245, 0.1);
+}
+
+/* Calendar improvements */
+.calendar-day {
+  transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+  transform: scale(1.05);
+}
+
+/* Event card improvements */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Smooth transitions for calendar navigation */
+.calendar-nav {
+  transition: all 0.2s ease;
+}
+
+.calendar-nav:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Support button styles */
+.support-button {
+  transition: all 0.2s ease;
+}
+
+.support-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Voice input animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-pulse {
+  animation: pulse 1.5s infinite;
+}
+
+/* File upload button styles */
+.file-upload-button {
+  transition: all 0.2s ease;
+}
+
+.file-upload-button:hover {
+  transform: translateY(-1px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .chat-container {
+    border-radius: 12px;
+  }
+  
+  .message-bubble {
+    max-width: 85%;
+  }
+  
+  .quick-replies {
+    flex-wrap: wrap;
+  }
+  
+  .quick-reply {
+    margin-bottom: 8px;
+  }
+}
+
+/* Support button animations */
+.support-button {
+  transition: all 0.3s ease;
+}
+
+.support-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* FAQ section improvements */
+.faq-item {
+  transition: all 0.2s ease;
+}
+
+.faq-item:hover {
+  background-color: #f8fafc;
+}
+
+/* Chat header improvements */
+.chat-header {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Smooth transitions for all interactive elements */
+button, .clickable {
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+/* Support information styling */
+.support-info {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border: 1px solid #e2e8f0;
+}
+
+/* Mobile responsiveness for support buttons */
+@media (max-width: 640px) {
+  .support-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .support-button {
+    width: 100%;
+  }
+}
+
+/* Search results styling */
+.search-results-info {
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+  border: 1px solid #7dd3fc;
+}
+
+/* Search input enhancements */
+.search-input {
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  box-shadow: 0 0 0 3px rgba(79, 109, 245, 0.1);
+}
+
+/* No results animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.no-results {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Clickable headings */
+.clickable-heading {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.clickable-heading:hover {
+  color: #4F6DF5;
+}
+
+/* Confirmation dialog animation */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.confirmation-dialog {
+  animation: fadeInScale 0.2s ease-out;
+}
+
+/* Modal overlay - Clear background */
+.modal-overlay {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(2px);
+}
+
+/* Ensure content behind modal is still visible */
+.modal-content {
+  z-index: 60;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* High Contrast Mode Styles */
+.high-contrast {
+  --text-primary: #000000;
+  --text-secondary: #333333;
+  --accentblue: #0000FF;
+  --surface: #FFFFFF;
+  --border: #000000;
+}
+
+.high-contrast body {
+  color: #000000;
+  background-color: #FFFFFF;
+}
+
+.high-contrast .card {
+  border: 2px solid #000000;
+  background-color: #FFFFFF;
+}
+
+.high-contrast button {
+  border: 2px solid #000000;
+}
+
+.high-contrast .text-textprimary {
+  color: #000000 !important;
+}
+
+.high-contrast .text-textsecondary {
+  color: #333333 !important;
+}
+
+.high-contrast .bg-accentblue {
+  background-color: #0000FF !important;
+  color: #FFFFFF !important;
+}
+
+/* Reduced Motion Styles */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+.reduce-motion .card-hover:hover {
+  transform: none;
+}
+
+.reduce-motion .sidebar-item:hover {
+  transform: none;
+}
+
+.reduce-motion .sidebar-logo:hover {
+  transform: none;
+}
+
+.reduce-motion .quick-reply:hover {
+  transform: none;
+}
+
+.reduce-motion .calendar-day:hover {
+  transform: none;
+}
+
+.reduce-motion .calendar-nav:hover {
+  transform: none;
+}
+
+.reduce-motion .support-button:hover {
+  transform: none;
+}
+
+.reduce-motion button:hover {
+  transform: none;
+}
+
+.reduce-motion .progress-bar {
+  transition: none;
+}
