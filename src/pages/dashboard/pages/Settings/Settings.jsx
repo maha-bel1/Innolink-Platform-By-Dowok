@@ -46,6 +46,11 @@ const Settings = () => {
     setDialogTitle(title);
     setDialogMessage(message);
     setShowMessageDialog(true);
+    
+    // Auto-hide message after 3 seconds
+    setTimeout(() => {
+      setShowMessageDialog(false);
+    }, 3000);
   };
 
   const handleCloseMessageDialog = () => {

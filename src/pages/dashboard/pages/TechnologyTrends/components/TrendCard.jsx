@@ -24,12 +24,14 @@ const TrendCard = ({ trend, isInitiallySaved = false, onSaveChange }) => {
     }
     
     // In a real application, you would save this to your backend or state management
-    console.log(`${newSavedState ? 'Saved' : 'Unsaved'} trend: ${trend.title}`);
+    console.log(`${newSavedState ? 'Saved' : 'Unsaved'} trend: ${trend.title} (ID: ${trend.id})`);
     
     // Show feedback to user
     if (newSavedState) {
       // You could add a toast notification here
       console.log(`Trend "${trend.title}" has been saved to your collection`);
+    } else {
+      console.log(`Trend "${trend.title}" has been removed from your collection`);
     }
   };
 

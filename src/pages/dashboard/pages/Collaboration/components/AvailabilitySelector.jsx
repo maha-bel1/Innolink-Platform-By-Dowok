@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Card from '../../../../../components/common/Card'
 
-const AvailabilitySelector = ({ onAvailabilitySave }) => {
-  const [availability, setAvailability] = useState({
+const AvailabilitySelector = ({ onAvailabilitySave, initialAvailability }) => {
+  const [availability, setAvailability] = useState(initialAvailability || {
     timezone: 'Africa/Tunis',
     workingHours: {
       start: '09:00',

@@ -2,6 +2,16 @@
 import React from 'react';
 
 const ResearcherForm = ({ formData, onChange, errors }) => {
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    onChange({
+      target: {
+        name,
+        value: type === 'checkbox' ? checked : value
+      }
+    });
+  };
+
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -11,7 +21,7 @@ const ResearcherForm = ({ formData, onChange, errors }) => {
             type="text"
             name="firstName"
             value={formData.firstName || ''}
-            onChange={onChange}
+            onChange={handleInputChange}
             className={`form-input ${errors.firstName ? 'border-red-500' : ''}`}
             required
           />
@@ -23,7 +33,7 @@ const ResearcherForm = ({ formData, onChange, errors }) => {
             type="text"
             name="lastName"
             value={formData.lastName || ''}
-            onChange={onChange}
+            onChange={handleInputChange}
             className={`form-input ${errors.lastName ? 'border-red-500' : ''}`}
             required
           />
@@ -37,7 +47,7 @@ const ResearcherForm = ({ formData, onChange, errors }) => {
           type="text"
           name="institution"
           value={formData.institution || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className={`form-input ${errors.institution ? 'border-red-500' : ''}`}
           required
         />
@@ -50,7 +60,7 @@ const ResearcherForm = ({ formData, onChange, errors }) => {
           type="text"
           name="department"
           value={formData.department || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className="form-input"
           placeholder="Department or faculty name"
         />
@@ -62,7 +72,7 @@ const ResearcherForm = ({ formData, onChange, errors }) => {
           type="text"
           name="researchField"
           value={formData.researchField || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className={`form-input ${errors.researchField ? 'border-red-500' : ''}`}
           required
           placeholder="ex: Artificial Intelligence, Biotechnology, Renewable Energy..."
@@ -75,7 +85,7 @@ const ResearcherForm = ({ formData, onChange, errors }) => {
         <select
           name="position"
           value={formData.position || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className={`form-input ${errors.position ? 'border-red-500' : ''}`}
           required
         >
@@ -97,7 +107,7 @@ const ResearcherForm = ({ formData, onChange, errors }) => {
         <textarea
           name="researchInterests"
           value={formData.researchInterests || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className="form-input"
           rows="3"
           placeholder="Describe your research interests, expertise, and current projects..."
@@ -110,7 +120,7 @@ const ResearcherForm = ({ formData, onChange, errors }) => {
           type="text"
           name="orcid"
           value={formData.orcid || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className="form-input"
           placeholder="0000-0000-0000-0000"
           pattern="\d{4}-\d{4}-\d{4}-\d{3}[\dX]"
@@ -123,7 +133,7 @@ const ResearcherForm = ({ formData, onChange, errors }) => {
           name="newsletterConsent"
           type="checkbox"
           checked={formData.newsletterConsent || false}
-          onChange={onChange}
+          onChange={handleInputChange}
           className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
         />
         <label htmlFor="newsletterConsent" className="ml-2 block text-sm text-gray-900">

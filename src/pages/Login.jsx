@@ -1,9 +1,10 @@
 // src/pages/Login.jsx
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -11,7 +12,15 @@ const Login = () => {
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { login } = useAuth();
+  const [loginError, setLoginError] = useState('');
+  const { login, isAuthenticated } = useAuth();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -27,6 +36,11 @@ const Login = () => {
         [name]: ''
       }));
     }
+    
+    // Clear general login error when user makes changes
+    if (loginError) {
+      setLoginError('');
+    }
   };
 
   const validateForm = () => {
@@ -40,6 +54,8 @@ const Login = () => {
     
     if (!formData.password) {
       newErrors.password = 'Password is required';
+    } else if (formData.password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
     }
     
     setErrors(newErrors);
@@ -52,6 +68,7 @@ const Login = () => {
     if (!validateForm()) return;
     
     setIsSubmitting(true);
+    setLoginError('');
     
     try {
       // Simulate API call
@@ -68,42 +85,61 @@ const Login = () => {
       setTimeout(() => {
         setIsSubmitting(false);
         
+        // For demo purposes, simulate login failure for specific credentials
+        if (formData.email === 'test@fail.com') {
+          setLoginError('Invalid email or password. Please try again.');
+          return;
+        }
+        
         // Create a mock user object (in a real app, this would come from your API)
         const userData = {
+          id: 'usr_123456',
           email: formData.email,
-          role: 'researcher', // This would normally come from your backend
-          name: 'John Doe', // This would normally come from your backend
-          // Add other user properties as needed
+          role: formData.email.includes('admin') ? 'admin' : 'researcher',
+          name: formData.email.split('@')[0].replace(/\./g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+          institution: 'University of Science & Technology',
+          profileComplete: 85,
+          joinDate: new Date().toISOString(),
         };
         
         // Update auth context and redirect
         login(userData);
+        navigate('/dashboard');
       }, 1000);
     } catch (error) {
       setIsSubmitting(false);
       console.error('Login error:', error);
-      alert('Login failed. Please check your credentials and try again.');
+      setLoginError('An unexpected error occurred. Please try again later.');
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full">
-        <div className="form-container shadow-2xl rounded-2xl">
+        <div className="form-container shadow-2xl rounded-2xl p-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-            <div className="mx-auto h-12 w-12 bg-blue-600 rounded-lg flex items-center justify-center">
+            <div className="mx-auto h-12 w-12 bg-primary rounded-lg flex items-center justify-center">
               <span className="text-white text-xl font-bold">IL</span>
             </div>
             <h2 className="mt-6 text-2xl font-bold text-gray-900">
-              Sign in to your account
+              Sign in to InnoLink
             </h2>
             <p className="mt-2 text-sm text-gray-600">
-              Or{' '}
-              <Link
+              Connect research to innovation and transform ideas into impact
+            </p>
+            
+            {loginError && (
+              <div className="mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <span className="block sm:inline">{loginError}</span>
+              </div>
+            )}
+            
+            <p className="mt-2 text-sm text-gray-600">
+              Don't have an account? <Link
                 to="/register"
                 className="font-medium text-blue-600 hover:text-blue-500"
               >
-                create a new account
+                Create a new account
               </Link>
             </p>
           </div>

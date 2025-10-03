@@ -8,6 +8,55 @@ const MeetingMinutesModal = ({ meeting, teamMembers, onClose }) => {
     });
   };
 
+  const handleDownloadMinutes = () => {
+    if (!meeting.minutes) return;
+
+    // Create meeting minutes content
+    const minutesContent = `
+MEETING MINUTES
+===============
+
+Meeting: ${meeting.title}
+Date: ${new Date(meeting.date).toLocaleDateString()}
+Time: ${meeting.startTime} - ${meeting.endTime}
+Type: ${meeting.type}
+${meeting.location ? `Location: ${meeting.location}` : ''}
+
+ATTENDEES
+---------
+${getParticipantNames(meeting.participants).join(', ')}
+
+MEETING SUMMARY
+---------------
+${meeting.minutes.summary}
+
+${meeting.minutes.actionItems && meeting.minutes.actionItems.length > 0 ? `
+ACTION ITEMS
+------------
+${meeting.minutes.actionItems.map((item, index) => `${index + 1}. ${item}`).join('\n')}
+` : ''}
+
+${meeting.minutes.attachments && meeting.minutes.attachments.length > 0 ? `
+ATTACHMENTS
+-----------
+${meeting.minutes.attachments.join(', ')}
+` : ''}
+
+Generated on: ${new Date().toLocaleDateString()}
+    `.trim();
+
+    // Create and trigger download
+    const blob = new Blob([minutesContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `meeting-minutes-${meeting.title.toLowerCase().replace(/\s+/g, '-')}-${meeting.date}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="fixed inset-0 bg-white bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-gray-200 shadow-2xl">
@@ -99,7 +148,21 @@ const MeetingMinutesModal = ({ meeting, teamMembers, onClose }) => {
                           <i className="fas fa-file text-gray-400 mr-2"></i>
                           <span className="text-textsecondary">{attachment}</span>
                         </div>
-                        <button className="text-accentblue hover:text-blue-600">
+                        <button 
+                          className="text-accentblue hover:text-blue-600"
+                          onClick={() => {
+                            // Create a mock download for attachments
+                            const blob = new Blob([`Mock content for ${attachment}`], { type: 'application/octet-stream' });
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = attachment;
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                            URL.revokeObjectURL(url);
+                          }}
+                        >
                           <i className="fas fa-download"></i>
                         </button>
                       </div>
@@ -124,7 +187,10 @@ const MeetingMinutesModal = ({ meeting, teamMembers, onClose }) => {
               Close
             </button>
             {meeting.minutes && (
-              <button className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+              <button 
+                onClick={handleDownloadMinutes}
+                className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+              >
                 <i className="fas fa-download mr-2"></i>Download Minutes
               </button>
             )}

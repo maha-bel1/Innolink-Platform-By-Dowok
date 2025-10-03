@@ -9,6 +9,8 @@ const CreateAlertModal = ({ isOpen, onClose, onCreateAlert }) => {
     description: '',
     keywords: ''
   });
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,8 +24,15 @@ const CreateAlertModal = ({ isOpen, onClose, onCreateAlert }) => {
     e.preventDefault();
     
     // Validate required fields
-    if (!alertData.title.trim() || !alertData.description.trim()) {
-      alert('Please fill in all required fields');
+    if (!alertData.title.trim()) {
+      setErrorMessage('Please enter an alert title');
+      setShowErrorDialog(true);
+      return;
+    }
+    
+    if (!alertData.description.trim()) {
+      setErrorMessage('Please enter an alert description');
+      setShowErrorDialog(true);
       return;
     }
     
@@ -46,10 +55,36 @@ const CreateAlertModal = ({ isOpen, onClose, onCreateAlert }) => {
     onClose();
   };
 
+  const handleErrorDialogClose = () => {
+    setShowErrorDialog(false);
+    setErrorMessage('');
+  };
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      {/* Error Dialog */}
+      {showErrorDialog && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-60 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6 transform transition-all">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i className="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Validation Error</h3>
+              <p className="text-gray-600 mb-6">{errorMessage}</p>
+              <button
+                onClick={handleErrorDialogClose}
+                className="w-full bg-accentblue text-white py-3 rounded-lg hover:bg-blue-600 transition-colors font-medium"
+              >
+                Try Again
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <Card className="w-full max-w-md p-6 card-hover">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold text-textprimary">Create New Alert</h2>

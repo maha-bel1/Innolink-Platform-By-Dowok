@@ -2,6 +2,16 @@
 import React from 'react';
 
 const CompanyForm = ({ formData, onChange, errors }) => {
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    onChange({
+      target: {
+        name,
+        value: type === 'checkbox' ? checked : value
+      }
+    });
+  };
+
   return (
     <div className="space-y-4">
       <div>
@@ -10,7 +20,7 @@ const CompanyForm = ({ formData, onChange, errors }) => {
           type="text"
           name="companyName"
           value={formData.companyName || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className={`form-input ${errors.companyName ? 'border-red-500' : ''}`}
           required
         />
@@ -22,7 +32,7 @@ const CompanyForm = ({ formData, onChange, errors }) => {
         <select
           name="industry"
           value={formData.industry || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className={`form-input ${errors.industry ? 'border-red-500' : ''}`}
           required
         >
@@ -43,7 +53,7 @@ const CompanyForm = ({ formData, onChange, errors }) => {
         <select
           name="companySize"
           value={formData.companySize || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className={`form-input ${errors.companySize ? 'border-red-500' : ''}`}
           required
         >
@@ -62,7 +72,7 @@ const CompanyForm = ({ formData, onChange, errors }) => {
           type="text"
           name="position"
           value={formData.position || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className={`form-input ${errors.position ? 'border-red-500' : ''}`}
           required
           placeholder="ex: R&D Director, Innovation Project Manager..."
@@ -75,7 +85,7 @@ const CompanyForm = ({ formData, onChange, errors }) => {
         <textarea
           name="description"
           value={formData.description || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className="form-input"
           rows="3"
           placeholder="Brief description of your company and its focus areas..."
@@ -88,7 +98,7 @@ const CompanyForm = ({ formData, onChange, errors }) => {
           type="url"
           name="website"
           value={formData.website || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className="form-input"
           placeholder="https://..."
         />
@@ -100,7 +110,7 @@ const CompanyForm = ({ formData, onChange, errors }) => {
           name="newsletterConsent"
           type="checkbox"
           checked={formData.newsletterConsent || false}
-          onChange={onChange}
+          onChange={handleInputChange}
           className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
         />
         <label htmlFor="newsletterConsent" className="ml-2 block text-sm text-gray-900">

@@ -23,6 +23,7 @@ const FundingForm = () => {
   const [selectedGrant, setSelectedGrant] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editingApplicationId, setEditingApplicationId] = useState(null);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 
   const projectTypes = [
     'Research & Development',
@@ -100,17 +101,48 @@ const FundingForm = () => {
     
     if (isEditing) {
       console.log('Updating application:', editingApplicationId, formData);
-      alert(`Application #${editingApplicationId} updated successfully!`);
+      setShowSuccessDialog(true);
     } else {
       console.log('Form submitted:', formData);
-      alert('Funding application submitted successfully!');
+      setShowSuccessDialog(true);
     }
-    
-    navigate('/funding'); // Redirect back to funding page after submission
+  };
+
+  const handleDialogClose = () => {
+    setShowSuccessDialog(false);
+    navigate('/dashboard/funding');
   };
 
   return (
     <>
+      {/* Success Dialog */}
+      {showSuccessDialog && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6 transform transition-all">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i className="fas fa-check text-green-600 text-2xl"></i>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                {isEditing ? 'Application Updated!' : 'Application Submitted!'}
+              </h3>
+              <p className="text-gray-600 mb-6">
+                {isEditing 
+                  ? `Your application #${editingApplicationId} has been updated successfully.`
+                  : 'Your funding application has been submitted successfully. You will receive a confirmation email shortly.'
+                }
+              </p>
+              <button
+                onClick={handleDialogClose}
+                className="w-full bg-accentblue text-white py-3 rounded-lg hover:bg-blue-600 transition-colors font-medium"
+              >
+                Back to Funding
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="mb-6">
         <h1 className="text-3xl font-bold text-textprimary">
           {isEditing ? 'Edit Application' : 'Apply for Funding'}
@@ -329,7 +361,7 @@ const FundingForm = () => {
           <div className="flex justify-end pt-4">
             <button
               type="button"
-              onClick={() => navigate('/funding')}
+              onClick={() => navigate('/dashboard/funding')}
               className="px-6 py-3 text-textsecondary border border-border rounded-lg hover:bg-gray-50 mr-3"
             >
               Cancel

@@ -6,6 +6,8 @@ const ProfileTab = ({ userData, setUserData, onSave }) => {
   const [showMessageDialog, setShowMessageDialog] = useState(false);
   const [dialogMessage, setDialogMessage] = useState('');
   const [dialogTitle, setDialogTitle] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const showMessage = (title, message) => {
     setDialogTitle(title);

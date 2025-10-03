@@ -15,11 +15,18 @@ import DiscussionThread from './components/DiscussionThread';
 import NewDiscussionModal from './components/NewDiscussionModal';
 import UploadFileModal from './components/UploadFileModal';
 import DownloadSuccessNotification from './components/DownloadSuccessNotification';
+import AvailabilitySelector from './components/AvailabilitySelector';
 
 const Collaboration = () => {
   const [state, setState] = useState(collaborationInitialState);
   const navigate = useNavigate();
   const location = useLocation();
+  
+  // State for success dialog
+  const [successDialog, setSuccessDialog] = useState({
+    show: false,
+    message: ''
+  });
   
   // Initialize data states
   const [projects, setProjects] = useState([
@@ -441,7 +448,8 @@ const Collaboration = () => {
     state, 
     data, 
     setData,
-    setDownloadNotifications
+    setDownloadNotifications,
+    setSuccessDialog // Pass setSuccessDialog to handlers
   );
 
   useEffect(() => {
@@ -460,7 +468,65 @@ const Collaboration = () => {
 
   // Handler to set state values
   const setStateValue = (key, value) => {
+    console.log(`Setting state: ${key} =`, value);
     setState(prev => ({ ...prev, [key]: value }));
+  };
+
+  // Handler for availability modal
+  const handleAvailabilityClick = (member) => {
+    setState(prev => ({
+      ...prev,
+      showAvailabilityModal: true,
+      selectedMember: member
+    }));
+  };
+
+  // Handler for saving availability
+  const handleAvailabilitySave = (availabilityData) => {
+    console.log('Saving availability for', state.selectedMember.name, availabilityData);
+    
+    // Update team member's availability
+    const updatedTeamMembers = teamMembers.map(member => {
+      if (member.id === state.selectedMember.id) {
+        return {
+          ...member,
+          availability: availabilityData
+        };
+      }
+      return member;
+    });
+    
+    setTeamMembers(updatedTeamMembers);
+    setState(prev => ({
+      ...prev,
+      showAvailabilityModal: false,
+      selectedMember: null
+    }));
+    
+    // Show success dialog instead of alert
+    setSuccessDialog({
+      show: true,
+      message: `Availability settings for ${state.selectedMember.name} saved successfully!`
+    });
+  };
+
+  // Handler for scheduling meeting
+  const handleScheduleMeeting = (meetingData) => {
+    console.log('Scheduling meeting:', meetingData);
+    const newMeeting = {
+      id: meetings.length + 1,
+      ...meetingData,
+      status: 'upcoming',
+      minutes: null
+    };
+    setMeetings([...meetings, newMeeting]);
+    setState({...state, showNewMeetingModal: false});
+    
+    // Show success dialog instead of alert
+    setSuccessDialog({
+      show: true,
+      message: 'Meeting scheduled successfully!'
+    });
   };
 
   // Remove download notification after 3 seconds
@@ -472,6 +538,21 @@ const Collaboration = () => {
       return () => clearTimeout(timer);
     }
   }, [downloadNotifications]);
+
+  // Auto-hide success dialog after 3 seconds
+  useEffect(() => {
+    if (successDialog.show) {
+      const timer = setTimeout(() => {
+        setSuccessDialog({ show: false, message: '' });
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [successDialog.show]);
+
+  // Debug state changes
+  useEffect(() => {
+    console.log('Current state:', state);
+  }, [state]);
 
   return (
     <>
@@ -491,6 +572,29 @@ const Collaboration = () => {
         ))}
       </div>
       
+      {/* Success Dialog */}
+      {successDialog.show && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+          <div className="bg-white rounded-2xl p-6 max-w-sm mx-4 shadow-2xl">
+            <div className="flex items-center mb-4">
+              <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                <i className="fas fa-check text-green-500"></i>
+              </div>
+              <h3 className="text-lg font-semibold text-textprimary">Success</h3>
+            </div>
+            <p className="text-textsecondary mb-4">{successDialog.message}</p>
+            <div className="flex justify-end">
+              <button
+                onClick={() => setSuccessDialog({ show: false, message: '' })}
+                className="px-4 py-2 bg-accentblue text-white rounded-lg hover:bg-blue-600"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
       <div className="space-y-6">
         <CollaborationTabs 
           activeTab={state.activeTab}
@@ -498,6 +602,7 @@ const Collaboration = () => {
           handlers={handlers}
           data={data}
           setStateValue={setStateValue}
+          onAvailabilityClick={handleAvailabilityClick}
         />
 
         {/* Modal components */}
@@ -515,7 +620,7 @@ const Collaboration = () => {
         {state.showNewMeetingModal && (
           <MeetingScheduler 
             teamMembers={teamMembers} 
-            onScheduleMeeting={handlers.handleScheduleMeeting}
+            onScheduleMeeting={handleScheduleMeeting}
             onClose={() => setStateValue('showNewMeetingModal', false)}
           />
         )}
@@ -593,7 +698,10 @@ const Collaboration = () => {
         {state.showNewDiscussionModal && (
           <NewDiscussionModal
             projects={projects}
-            onClose={() => setStateValue('showNewDiscussionModal', false)}
+            onClose={() => {
+              console.log('Closing NewDiscussionModal');
+              setStateValue('showNewDiscussionModal', false);
+            }}
             onCreate={handlers.handleCreateDiscussion}
           />
         )}
@@ -604,6 +712,38 @@ const Collaboration = () => {
             onClose={() => setStateValue('showUploadFileModal', false)}
             onUpload={handlers.handleFileUpload}
           />
+        )}
+
+        {/* Availability Modal */}
+        {state.showAvailabilityModal && state.selectedMember && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-gray-200 shadow-2xl">
+              <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-t-2xl">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h2 className="text-2xl font-bold">Set Availability</h2>
+                    <p className="text-blue-100 text-sm mt-1">{state.selectedMember.name}'s working hours</p>
+                  </div>
+                  <button
+                    onClick={() => setState(prev => ({
+                      ...prev,
+                      showAvailabilityModal: false,
+                      selectedMember: null
+                    }))}
+                    className="text-white hover:text-blue-200 transition-colors p-2 rounded-full hover:bg-white/10"
+                  >
+                    <i className="fas fa-times text-xl"></i>
+                  </button>
+                </div>
+              </div>
+              <div className="p-6">
+                <AvailabilitySelector 
+                  onAvailabilitySave={handleAvailabilitySave}
+                  initialAvailability={state.selectedMember.availability}
+                />
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </>

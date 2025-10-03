@@ -3,11 +3,12 @@ import Card from '../../../../../components/common/Card';
 import FiltersSection from './FiltersSection';
 import TrendCard from './TrendCard';
 
-const TrendsTab = ({ savedTrends, onSaveTrend }) => {
+const TrendsTab = ({ savedTrends, onSaveTrend, allTrends }) => {
   const [filter, setFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
 
-  const trends = [
+  // Use the allTrends prop instead of local trends data
+  const trends = allTrends || [
     {
       id: 1,
       title: 'AI in Medical Diagnostics',

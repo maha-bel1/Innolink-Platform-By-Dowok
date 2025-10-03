@@ -91,21 +91,21 @@ const FundingDetails = () => {
   ];
 
   const handleApplyNow = (grantId) => {
-    navigate('/funding/apply', { state: { grantId } });
+    navigate('/dashboard/funding/apply', { state: { grantId } });
   };
 
   const handleNewApplication = () => {
-    navigate('/funding/apply');
+    navigate('/dashboard/funding/apply');
   };
 
   // Handle view application details
   const handleViewApplication = (applicationId) => {
-    navigate(`/funding/application/${applicationId}`);
+    navigate(`/dashboard/funding/application/${applicationId}`);
   };
 
   // Handle edit application - navigate to the application form with the application ID
   const handleEditApplication = (applicationId) => {
-    navigate(`/funding/apply/${applicationId}`, { 
+    navigate(`/dashboard/funding/apply/${applicationId}`, { 
       state: { 
         isEditing: true,
         applicationId: applicationId

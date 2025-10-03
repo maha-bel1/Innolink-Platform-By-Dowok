@@ -2,6 +2,16 @@
 import React from 'react';
 
 const InvestorForm = ({ formData, onChange, errors }) => {
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    onChange({
+      target: {
+        name,
+        value: type === 'checkbox' ? checked : value
+      }
+    });
+  };
+
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -11,7 +21,7 @@ const InvestorForm = ({ formData, onChange, errors }) => {
             type="text"
             name="firstName"
             value={formData.firstName || ''}
-            onChange={onChange}
+            onChange={handleInputChange}
             className={`form-input ${errors.firstName ? 'border-red-500' : ''}`}
             required
           />
@@ -23,7 +33,7 @@ const InvestorForm = ({ formData, onChange, errors }) => {
             type="text"
             name="lastName"
             value={formData.lastName || ''}
-            onChange={onChange}
+            onChange={handleInputChange}
             className={`form-input ${errors.lastName ? 'border-red-500' : ''}`}
             required
           />
@@ -37,7 +47,7 @@ const InvestorForm = ({ formData, onChange, errors }) => {
           type="text"
           name="organization"
           value={formData.organization || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className={`form-input ${errors.organization ? 'border-red-500' : ''}`}
           required
         />
@@ -49,7 +59,7 @@ const InvestorForm = ({ formData, onChange, errors }) => {
         <select
           name="investmentType"
           value={formData.investmentType || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className={`form-input ${errors.investmentType ? 'border-red-500' : ''}`}
           required
         >
@@ -69,7 +79,7 @@ const InvestorForm = ({ formData, onChange, errors }) => {
         <select
           name="investmentStage"
           value={formData.investmentStage || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className="form-input"
         >
           <option value="">Select investment stage</option>
@@ -87,7 +97,7 @@ const InvestorForm = ({ formData, onChange, errors }) => {
           type="text"
           name="interestSectors"
           value={formData.interestSectors || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className={`form-input ${errors.interestSectors ? 'border-red-500' : ''}`}
           required
           placeholder="ex: Biotech, AI, Renewable Energy..."
@@ -100,7 +110,7 @@ const InvestorForm = ({ formData, onChange, errors }) => {
         <select
           name="investmentRange"
           value={formData.investmentRange || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className="form-input"
         >
           <option value="">Select investment range</option>
@@ -120,7 +130,7 @@ const InvestorForm = ({ formData, onChange, errors }) => {
           type="url"
           name="website"
           value={formData.website || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className="form-input"
           placeholder="https://..."
         />
@@ -132,7 +142,7 @@ const InvestorForm = ({ formData, onChange, errors }) => {
           name="newsletterConsent"
           type="checkbox"
           checked={formData.newsletterConsent || false}
-          onChange={onChange}
+          onChange={handleInputChange}
           className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
         />
         <label htmlFor="newsletterConsent" className="ml-2 block text-sm text-gray-900">

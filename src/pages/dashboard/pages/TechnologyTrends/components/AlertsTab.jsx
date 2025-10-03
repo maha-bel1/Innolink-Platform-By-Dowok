@@ -7,6 +7,8 @@ const AlertsTab = () => {
   const [activeFilter, setActiveFilter] = useState('all');
   const [priorityFilter, setPriorityFilter] = useState(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
   const [alerts, setAlerts] = useState([
     {
       id: 1,
@@ -74,8 +76,14 @@ const AlertsTab = () => {
     setAlerts(prevAlerts => [newAlert, ...prevAlerts]);
     setShowCreateModal(false);
     
-    // Show success message
-    alert(`Alert "${newAlert.title}" created successfully!`);
+    // Show success dialog instead of alert
+    setSuccessMessage(`Alert "${newAlert.title}" created successfully!`);
+    setShowSuccessDialog(true);
+  };
+
+  const handleDialogClose = () => {
+    setShowSuccessDialog(false);
+    setSuccessMessage('');
   };
 
   // Filter alerts based on active filters
@@ -114,6 +122,27 @@ const AlertsTab = () => {
 
   return (
     <div className="space-y-4">
+      {/* Success Dialog */}
+      {showSuccessDialog && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6 transform transition-all">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i className="fas fa-check text-green-600 text-2xl"></i>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Success!</h3>
+              <p className="text-gray-600 mb-6">{successMessage}</p>
+              <button
+                onClick={handleDialogClose}
+                className="w-full bg-accentblue text-white py-3 rounded-lg hover:bg-blue-600 transition-colors font-medium"
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-semibold text-textprimary">Personalized Alerts</h2>
         <button 

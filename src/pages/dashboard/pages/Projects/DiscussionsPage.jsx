@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Card from '../../../../components/common/Card';
+import NewDiscussionModal from '../Collaboration/components/NewDiscussionModal';
 
 const DiscussionsPage = () => {
   const location = useLocation();
@@ -9,9 +10,10 @@ const DiscussionsPage = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [newMessage, setNewMessage] = useState('');
   const [selectedDiscussion, setSelectedDiscussion] = useState(null);
+  const [showNewDiscussionModal, setShowNewDiscussionModal] = useState(false);
   
   // Sample discussions data with their messages
-  const discussions = [
+  const [discussions, setDiscussions] = useState([
     {
       id: 1,
       title: 'AI Model Architecture Discussion',
@@ -127,12 +129,47 @@ const DiscussionsPage = () => {
         }
       ]
     }
-  ];
+  ]);
 
   // Set the first discussion as selected by default
-  if (!selectedDiscussion && discussions.length > 0) {
-    setSelectedDiscussion(discussions[0]);
-  }
+  useEffect(() => {
+    if (!selectedDiscussion && discussions.length > 0) {
+      setSelectedDiscussion(discussions[0]);
+    }
+  }, [discussions, selectedDiscussion]);
+
+  const handleCreateDiscussion = (discussionData) => {
+    console.log('Creating new discussion:', discussionData);
+    
+    const newDiscussion = {
+      id: Math.max(...discussions.map(d => d.id)) + 1,
+      title: discussionData.title,
+      author: 'You',
+      timestamp: 'Just now',
+      replies: 0,
+      project: discussionData.project,
+      unread: false,
+      content: discussionData.content,
+      tags: ['general'],
+      lastActivity: new Date().toISOString(),
+      participants: 1,
+      messages: [
+        {
+          id: 1,
+          author: 'You',
+          content: discussionData.content,
+          timestamp: 'Just now',
+          avatar: 'YT'
+        }
+      ]
+    };
+    
+    setDiscussions(prev => [newDiscussion, ...prev]);
+    setShowNewDiscussionModal(false);
+    
+    // Select the newly created discussion
+    setSelectedDiscussion(newDiscussion);
+  };
 
   const handleSendMessage = () => {
     if (newMessage.trim() && selectedDiscussion) {
@@ -155,6 +192,8 @@ const DiscussionsPage = () => {
         return discussion;
       });
       
+      setDiscussions(updatedDiscussions);
+      
       // Update the selected discussion with the new message
       const updatedSelected = updatedDiscussions.find(d => d.id === selectedDiscussion.id);
       setSelectedDiscussion(updatedSelected);
@@ -167,13 +206,13 @@ const DiscussionsPage = () => {
     
     // Mark as read when clicked
     const updatedDiscussions = discussions.map(d => {
-      if (d.id === discussion.id) {
+      if (d.id === discussion.id && d.unread) {
         return { ...d, unread: false };
       }
       return d;
     });
     
-    // In a real app, we would update the state with updatedDiscussions
+    setDiscussions(updatedDiscussions);
   };
 
   if (!project) {
@@ -255,7 +294,10 @@ const DiscussionsPage = () => {
           <Card className="p-5">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold text-textprimary">Discussions</h2>
-              <button className="px-4 py-2 bg-accentblue text-white rounded-lg hover:bg-blue-600 text-sm">
+              <button 
+                onClick={() => setShowNewDiscussionModal(true)}
+                className="px-4 py-2 bg-accentblue text-white rounded-lg hover:bg-blue-600 text-sm"
+              >
                 <i className="fas fa-plus mr-2"></i>New Discussion
               </button>
             </div>
@@ -315,7 +357,7 @@ const DiscussionsPage = () => {
               </div>
 
               {/* Messages */}
-              <div className="flex-1 p-5 overflow-y-auto space-y-4">
+              <div className="flex-1 p-5 overflow-y-auto space-y-4 max-h-[500px]">
                 {selectedDiscussion.messages.map(message => (
                   <div key={message.id} className="flex items-start space-x-3">
                     <div className="w-10 h-10 rounded-full bg-accentblue flex items-center justify-center flex-shrink-0">
@@ -362,6 +404,15 @@ const DiscussionsPage = () => {
           )}
         </div>
       </div>
+
+      {/* New Discussion Modal */}
+      {showNewDiscussionModal && (
+        <NewDiscussionModal
+          projects={[project]}
+          onClose={() => setShowNewDiscussionModal(false)}
+          onCreate={handleCreateDiscussion}
+        />
+      )}
     </>
   );
 };

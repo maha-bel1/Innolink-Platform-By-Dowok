@@ -10,6 +10,7 @@ export const collaborationInitialState = {
   showVideoConferenceModal: false,
   showMeetingMinutesModal: false,
   showAvailabilityChecker: false,
+  showAvailabilityModal: false,
   showMessageModal: false,
   showInviteMemberModal: false,
   showDiscussionThread: false,
@@ -24,24 +25,81 @@ export const collaborationInitialState = {
 };
 
 // Custom hook for collaboration handlers
-export const useCollaborationHandlers = (navigate, setState, state, data, setData, setDownloadNotifications) => {
-  const {
-    projects,
-    teamMembers,
-    meetings,
-    discussions,
-    recentFiles
-  } = data;
+export const useCollaborationHandlers = (navigate, setState, state, data, setData, setDownloadNotifications, setSuccessDialog) => {
+  const { projects, teamMembers, meetings, discussions, recentFiles } = data;
+  const { setProjects, setTeamMembers, setMeetings, setDiscussions, setRecentFiles } = setData;
 
-  const {
-    setProjects,
-    setTeamMembers,
-    setMeetings,
-    setDiscussions,
-    setRecentFiles
-  } = setData;
+  // Handler for viewing a project
+  const handleViewProject = (project) => {
+    console.log('Navigating to project:', project);
+    
+    // Navigate to the project details page
+    navigate(`/dashboard/projects/${project.id}`, { 
+      state: { project } 
+    });
+  };
 
-  // Handler for scheduling a new meeting
+  // Handler for editing a project
+  const handleEditProject = (project) => {
+    setState(prev => ({
+      ...prev,
+      editingProject: project,
+      showNewProjectModal: true
+    }));
+  };
+
+  // Handler for saving a project (create or update)
+  const handleSaveProject = (projectData) => {
+    if (state.editingProject) {
+      console.log('Updating project:', projectData);
+      // Update existing project
+      const updatedProjects = projects.map(project => 
+        project.id === state.editingProject.id 
+          ? { ...project, ...projectData }
+          : project
+      );
+      setProjects(updatedProjects);
+      
+      // Show success dialog for project update
+      if (setSuccessDialog) {
+        setSuccessDialog({
+          show: true,
+          message: 'Project updated successfully!'
+        });
+      } else {
+        alert('Project updated successfully!');
+      }
+    } else {
+      console.log('Creating new project:', projectData);
+      // Create new project
+      const newProject = {
+        id: Math.max(...projects.map(p => p.id)) + 1,
+        team: ['YT'], // Your initials
+        completedTasks: 0,
+        totalTasks: 10,
+        lastUpdate: new Date().toISOString().split('T')[0],
+        ...projectData
+      };
+      setProjects([...projects, newProject]);
+      
+      // Show success dialog for project creation
+      if (setSuccessDialog) {
+        setSuccessDialog({
+          show: true,
+          message: 'Project created successfully!'
+        });
+      } else {
+        alert('Project created successfully!');
+      }
+    }
+    setState({
+      ...state, 
+      showNewProjectModal: false,
+      editingProject: null
+    });
+  };
+
+  // Handler for scheduling a new meeting - REMOVED ALERT FROM HERE
   const handleScheduleMeeting = (meetingData) => {
     console.log('Scheduling meeting:', meetingData);
     const newMeeting = {
@@ -52,7 +110,9 @@ export const useCollaborationHandlers = (navigate, setState, state, data, setDat
     };
     setMeetings([...meetings, newMeeting]);
     setState({...state, showNewMeetingModal: false});
-    alert('Meeting scheduled successfully!');
+    
+    // Success dialog will be shown in the parent component (Collaboration.jsx)
+    // The alert has been removed from here
   };
 
   // Handler for rescheduling a meeting
@@ -69,60 +129,32 @@ export const useCollaborationHandlers = (navigate, setState, state, data, setDat
       showRescheduleModal: false,
       reschedulingMeeting: null
     });
-    alert('Meeting rescheduled successfully!');
-  };
-
-  // Handler for saving a project (create or update)
-  const handleSaveProject = (projectData) => {
-    if (state.editingProject) {
-      console.log('Updating project:', projectData);
-      // Update existing project
-      const updatedProjects = projects.map(project => 
-        project.id === state.editingProject.id 
-          ? { ...project, ...projectData }
-          : project
-      );
-      setProjects(updatedProjects);
-      alert('Project updated successfully!');
+    
+    // Show success dialog for meeting reschedule
+    if (setSuccessDialog) {
+      setSuccessDialog({
+        show: true,
+        message: 'Meeting rescheduled successfully!'
+      });
     } else {
-      console.log('Creating new project:', projectData);
-      // Create new project
-      const newProject = {
-        id: Math.max(...projects.map(p => p.id)) + 1,
-        team: ['YT'], // Your initials
-        completedTasks: 0,
-        totalTasks: 10,
-        lastUpdate: new Date().toISOString().split('T')[0],
-        ...projectData
-      };
-      setProjects([...projects, newProject]);
-      alert('Project created successfully!');
+      alert('Meeting rescheduled successfully!');
     }
-    setState({
-      ...state, 
-      showNewProjectModal: false,
-      editingProject: null
-    });
-  };
-
-  // Handler for editing a project
-  const handleEditProject = (project) => {
-    setState({
-      ...state, 
-      editingProject: project,
-      showNewProjectModal: true
-    });
-  };
-
-  // Handler for viewing a project - FIXED PATH
-  const handleViewProject = (project) => {
-    navigate(`/dashboard/projects/${project.id}`, { state: { project } });
   };
 
   // Handler for joining a meeting
   const handleJoinConference = (stream) => {
     console.log('Joining conference with stream:', stream);
-    alert(`Successfully joined ${state.joiningMeeting.title}!`);
+    
+    // Show success dialog for joining meeting
+    if (setSuccessDialog) {
+      setSuccessDialog({
+        show: true,
+        message: `Successfully joined ${state.joiningMeeting.title}!`
+      });
+    } else {
+      alert(`Successfully joined ${state.joiningMeeting.title}!`);
+    }
+    
     setState({
       ...state, 
       showVideoConferenceModal: false,
@@ -142,7 +174,17 @@ export const useCollaborationHandlers = (navigate, setState, state, data, setDat
   // Handler for sending a message to a team member
   const handleSendMessage = (messageData) => {
     console.log('Sending message to', state.selectedMember.name, ':', messageData);
-    alert(`Message sent to ${state.selectedMember.name}!`);
+    
+    // Show success dialog for sending message
+    if (setSuccessDialog) {
+      setSuccessDialog({
+        show: true,
+        message: `Message sent to ${state.selectedMember.name}!`
+      });
+    } else {
+      alert(`Message sent to ${state.selectedMember.name}!`);
+    }
+    
     setState({
       ...state, 
       showMessageModal: false,
@@ -153,7 +195,17 @@ export const useCollaborationHandlers = (navigate, setState, state, data, setDat
   // Handler for inviting a new team member
   const handleInviteMember = (inviteData) => {
     console.log('Inviting new member:', inviteData);
-    alert(`Invitation sent to ${inviteData.email}!`);
+    
+    // Show success dialog for inviting member
+    if (setSuccessDialog) {
+      setSuccessDialog({
+        show: true,
+        message: `Invitation sent to ${inviteData.email}!`
+      });
+    } else {
+      alert(`Invitation sent to ${inviteData.email}!`);
+    }
+    
     setState({...state, showInviteMemberModal: false});
   };
 
@@ -182,7 +234,17 @@ export const useCollaborationHandlers = (navigate, setState, state, data, setDat
     });
     
     setDiscussions(updatedDiscussions);
-    alert('Reply posted successfully!');
+    
+    // Show success dialog for posting reply
+    if (setSuccessDialog) {
+      setSuccessDialog({
+        show: true,
+        message: 'Reply posted successfully!'
+      });
+    } else {
+      alert('Reply posted successfully!');
+    }
+    
     setState({
       ...state, 
       showDiscussionThread: false,
@@ -207,7 +269,17 @@ export const useCollaborationHandlers = (navigate, setState, state, data, setDat
     };
     
     setDiscussions([newDiscussion, ...discussions]);
-    alert('Discussion created successfully!');
+    
+    // Show success dialog for creating discussion
+    if (setSuccessDialog) {
+      setSuccessDialog({
+        show: true,
+        message: 'Discussion created successfully!'
+      });
+    } else {
+      alert('Discussion created successfully!');
+    }
+    
     setState({...state, showNewDiscussionModal: false});
   };
 
@@ -243,10 +315,27 @@ export const useCollaborationHandlers = (navigate, setState, state, data, setDat
       .then(() => console.log('File shared successfully'))
       .catch((error) => {
         console.log('Error sharing file:', error);
-        alert(`Share link for ${file.name} copied to clipboard!`);
+        
+        // Show success dialog for sharing file
+        if (setSuccessDialog) {
+          setSuccessDialog({
+            show: true,
+            message: `Share link for ${file.name} copied to clipboard!`
+          });
+        } else {
+          alert(`Share link for ${file.name} copied to clipboard!`);
+        }
       });
     } else {
-      alert(`Share link for ${file.name} copied to clipboard!`);
+      // Show success dialog for sharing file
+      if (setSuccessDialog) {
+        setSuccessDialog({
+          show: true,
+          message: `Share link for ${file.name} copied to clipboard!`
+        });
+      } else {
+        alert(`Share link for ${file.name} copied to clipboard!`);
+      }
     }
   };
 
@@ -265,7 +354,17 @@ export const useCollaborationHandlers = (navigate, setState, state, data, setDat
     };
     
     setRecentFiles([newFile, ...recentFiles]);
-    alert(`File ${fileData.file.name} uploaded successfully!`);
+    
+    // Show success dialog for file upload
+    if (setSuccessDialog) {
+      setSuccessDialog({
+        show: true,
+        message: `File ${fileData.file.name} uploaded successfully!`
+      });
+    } else {
+      alert(`File ${fileData.file.name} uploaded successfully!`);
+    }
+    
     setState({...state, showUploadFileModal: false});
   };
 
@@ -275,11 +374,11 @@ export const useCollaborationHandlers = (navigate, setState, state, data, setDat
   };
 
   return {
+    handleViewProject,
+    handleEditProject,
+    handleSaveProject,
     handleScheduleMeeting,
     handleRescheduleMeeting,
-    handleSaveProject,
-    handleEditProject,
-    handleViewProject,
     handleJoinConference,
     handleViewMinutes,
     handleSendMessage,

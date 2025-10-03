@@ -12,7 +12,8 @@ const CollaborationTabs = ({
   state, 
   handlers, 
   data,
-  setStateValue 
+  setStateValue,
+  onAvailabilityClick
 }) => {
   const {
     projects,
@@ -63,7 +64,11 @@ const CollaborationTabs = ({
         <TeamMemberCard 
           key={member.id} 
           member={member} 
-          onMessage={(member) => setStateValue('selectedMember', member)}
+          onMessage={(member) => {
+            setStateValue('selectedMember', member);
+            setStateValue('showMessageModal', true);
+          }}
+          onAvailability={onAvailabilityClick}
         />
       ))}
     </div>
@@ -126,7 +131,10 @@ const CollaborationTabs = ({
     <div className="space-y-6">
       <div className="flex justify-end">
         <button 
-          onClick={() => setStateValue('showNewDiscussionModal', true)}
+          onClick={() => {
+            console.log('New Discussion button clicked - setting showNewDiscussionModal to true');
+            setStateValue('showNewDiscussionModal', true);
+          }}
           className="px-4 py-2 bg-accentblue text-white rounded-lg hover:bg-blue-600 transition-colors"
         >
           <i className="fas fa-plus mr-2"></i>New Discussion
@@ -138,8 +146,14 @@ const CollaborationTabs = ({
           <DiscussionCard 
             key={discussion.id} 
             discussion={discussion} 
-            onViewThread={() => setStateValue('selectedDiscussion', discussion)}
-            onReply={() => setStateValue('selectedDiscussion', discussion)}
+            onViewThread={() => {
+              setStateValue('selectedDiscussion', discussion);
+              setStateValue('showDiscussionThread', true);
+            }}
+            onReply={() => {
+              setStateValue('selectedDiscussion', discussion);
+              setStateValue('showDiscussionThread', true);
+            }}
           />
         ))}
       </div>

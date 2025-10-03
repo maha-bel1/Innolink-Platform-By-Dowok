@@ -6,6 +6,7 @@ const AlertSettingsPage = () => {
   const { alertId } = useParams();
   const navigate = useNavigate();
   const [alert, setAlert] = useState(null);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [settings, setSettings] = useState({
     frequency: 'daily',
     notificationTypes: ['email'],
@@ -66,7 +67,11 @@ const AlertSettingsPage = () => {
   const handleSaveSettings = () => {
     // Save settings logic would go here
     console.log('Saving settings:', settings);
-    alert('Settings saved successfully!');
+    setShowSuccessDialog(true);
+  };
+
+  const handleDialogClose = () => {
+    setShowSuccessDialog(false);
     navigate(-1); // Go back to previous page
   };
 
@@ -90,6 +95,27 @@ const AlertSettingsPage = () => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
+      {/* Success Dialog */}
+      {showSuccessDialog && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6 transform transition-all">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i className="fas fa-check text-green-600 text-2xl"></i>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Settings Saved!</h3>
+              <p className="text-gray-600 mb-6">Your alert settings have been updated successfully.</p>
+              <button
+                onClick={handleDialogClose}
+                className="w-full bg-accentblue text-white py-3 rounded-lg hover:bg-blue-600 transition-colors font-medium"
+              >
+                Back to Alerts
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="mb-6">
         <button 
           onClick={() => navigate(-1)}

@@ -46,7 +46,7 @@ const ApplicationDetails = () => {
       <div className="mb-6">
         <div className="flex items-center mb-4">
           <button 
-            onClick={() => navigate('/funding')}
+            onClick={() => navigate('/dashboard/funding')}
             className="mr-3 p-2 text-textsecondary hover:text-accentblue hover:bg-blue-50 rounded-lg transition-colors"
           >
             <i className="fas fa-arrow-left"></i>
@@ -133,7 +133,7 @@ const ApplicationDetails = () => {
 
           <div className="flex justify-end pt-4">
             <button
-              onClick={() => navigate('/funding')}
+              onClick={() => navigate('/dashboard/funding')}
               className="px-6 py-3 bg-accentblue text-white rounded-lg hover:bg-blue-600 transition-colors font-medium"
             >
               Back to Applications

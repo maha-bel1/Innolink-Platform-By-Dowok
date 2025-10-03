@@ -2,6 +2,16 @@
 import React from 'react';
 
 const AdminForm = ({ formData, onChange, errors }) => {
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    onChange({
+      target: {
+        name,
+        value: type === 'checkbox' ? checked : value
+      }
+    });
+  };
+
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -11,7 +21,7 @@ const AdminForm = ({ formData, onChange, errors }) => {
             type="text"
             name="firstName"
             value={formData.firstName || ''}
-            onChange={onChange}
+            onChange={handleInputChange}
             className={`form-input ${errors.firstName ? 'border-red-500' : ''}`}
             required
           />
@@ -23,7 +33,7 @@ const AdminForm = ({ formData, onChange, errors }) => {
             type="text"
             name="lastName"
             value={formData.lastName || ''}
-            onChange={onChange}
+            onChange={handleInputChange}
             className={`form-input ${errors.lastName ? 'border-red-500' : ''}`}
             required
           />
@@ -37,7 +47,7 @@ const AdminForm = ({ formData, onChange, errors }) => {
           type="text"
           name="organization"
           value={formData.organization || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className={`form-input ${errors.organization ? 'border-red-500' : ''}`}
           required
         />
@@ -50,7 +60,7 @@ const AdminForm = ({ formData, onChange, errors }) => {
           type="password"
           name="adminKey"
           value={formData.adminKey || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className={`form-input ${errors.adminKey ? 'border-red-500' : ''}`}
           required
           placeholder="Enter your admin authorization key"
@@ -64,7 +74,7 @@ const AdminForm = ({ formData, onChange, errors }) => {
           type="text"
           name="position"
           value={formData.position || ''}
-          onChange={onChange}
+          onChange={handleInputChange}
           className={`form-input ${errors.position ? 'border-red-500' : ''}`}
           required
           placeholder="ex: Platform Administrator, System Manager..."
@@ -78,7 +88,7 @@ const AdminForm = ({ formData, onChange, errors }) => {
           name="newsletterConsent"
           type="checkbox"
           checked={formData.newsletterConsent || false}
-          onChange={onChange}
+          onChange={handleInputChange}
           className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
         />
         <label htmlFor="newsletterConsent" className="ml-2 block text-sm text-gray-900">

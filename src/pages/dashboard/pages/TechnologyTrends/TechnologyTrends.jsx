@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import TrendsTab from './components/TrendsTab';
 import AlertsTab from './components/AlertsTab';
 import SourcesTab from './components/SourcesTab';
+import TrendCard from './components/TrendCard';
+import ExportConfirmationModal from './components/ExportConfirmationModal';
 import Card from '../../../../components/common/Card';
 
 const TechnologyTrends = () => {
   const [activeTab, setActiveTab] = useState('trends');
   const [savedTrends, setSavedTrends] = useState(new Set());
+  const [showExportModal, setShowExportModal] = useState(false);
   
-  // Sample trends data (same as in TrendsTab)
+  // All available trends data (shared between TrendsTab and Saved tab)
   const allTrends = [
     {
       id: 1,
@@ -80,19 +83,23 @@ const TechnologyTrends = () => {
 
   // Function to handle saving/unsaving trends
   const handleSaveTrend = (trendId, isSaved) => {
-    const newSavedTrends = new Set(savedTrends);
-    if (isSaved) {
-      newSavedTrends.add(trendId);
-    } else {
-      newSavedTrends.delete(trendId);
-    }
-    setSavedTrends(newSavedTrends);
+    setSavedTrends(prev => {
+      const newSavedTrends = new Set(prev);
+      if (isSaved) {
+        newSavedTrends.add(trendId);
+        console.log(`Trend ${trendId} saved. Current saved trends:`, Array.from(newSavedTrends));
+      } else {
+        newSavedTrends.delete(trendId);
+        console.log(`Trend ${trendId} removed. Current saved trends:`, Array.from(newSavedTrends));
+      }
+      return newSavedTrends;
+    });
   };
 
-  // Function to export all saved trends
-  const handleExportAll = () => {
+  // Function to handle export confirmation
+  const handleExportConfirm = () => {
     if (savedTrends.size === 0) {
-      alert('No trends to export!');
+      setShowExportModal(false);
       return;
     }
 
@@ -118,13 +125,48 @@ const TechnologyTrends = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.setAttribute('href', url);
-    link.setAttribute('download', 'saved_trends_export.csv');
+    link.setAttribute('download', `saved_trends_export_${new Date().toISOString().split('T')[0]}.csv`);
     link.style.visibility = 'hidden';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
     
-    alert(`Exported ${savedTrends.size} trends successfully!`);
+    // Close modal after successful export
+    setShowExportModal(false);
+    
+    // Show success message in console (you can replace this with a toast notification)
+    console.log(`Exported ${savedTrends.size} trends successfully!`);
+  };
+
+  // Function to handle export button click
+  const handleExportClick = () => {
+    if (savedTrends.size === 0) {
+      // Show a different message if no trends to export
+      const noTrendsModal = document.createElement('div');
+      noTrendsModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+      noTrendsModal.innerHTML = `
+        <div class="bg-white rounded-lg p-6 max-w-sm w-full">
+          <div class="flex items-center mb-4">
+            <div class="bg-yellow-100 p-3 rounded-full mr-4">
+              <i class="fas fa-exclamation-triangle text-yellow-600 text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900">No Trends to Export</h3>
+              <p class="text-gray-600 text-sm">You haven't saved any trends yet.</p>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <button onclick="this.closest('.fixed').remove()" class="px-4 py-2 bg-accentblue text-white rounded-lg hover:bg-blue-600 transition-colors">
+              OK
+            </button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(noTrendsModal);
+      return;
+    }
+    
+    setShowExportModal(true);
   };
 
   // Get the actual saved trend objects
@@ -183,7 +225,13 @@ const TechnologyTrends = () => {
           </nav>
         </div>
 
-        {activeTab === 'trends' && <TrendsTab savedTrends={savedTrends} onSaveTrend={handleSaveTrend} />}
+        {activeTab === 'trends' && (
+          <TrendsTab 
+            savedTrends={savedTrends} 
+            onSaveTrend={handleSaveTrend} 
+            allTrends={allTrends}
+          />
+        )}
         {activeTab === 'alerts' && <AlertsTab />}
         {activeTab === 'sources' && <SourcesTab />}
         {activeTab === 'saved' && (
@@ -192,7 +240,7 @@ const TechnologyTrends = () => {
               <h2 className="text-xl font-semibold text-textprimary">Your Saved Trends</h2>
               {savedTrends.size > 0 && (
                 <button 
-                  onClick={handleExportAll}
+                  onClick={handleExportClick}
                   className="px-4 py-2 bg-accentblue text-white rounded-lg hover:bg-blue-600 transition-colors text-sm"
                 >
                   <i className="fas fa-download mr-2"></i>Export All
@@ -227,6 +275,15 @@ const TechnologyTrends = () => {
           </div>
         )}
       </div>
+
+      {/* Export Confirmation Modal */}
+      <ExportConfirmationModal
+        isOpen={showExportModal}
+        onClose={() => setShowExportModal(false)}
+        onConfirm={handleExportConfirm}
+        exportCount={savedTrends.size}
+        exportFormat="CSV"
+      />
     </>
   );
 };
